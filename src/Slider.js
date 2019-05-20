@@ -61,6 +61,11 @@ export default class Slider extends PureComponent {
     value: PropTypes.number,
 
     /**
+     * if set vertical true, will get value from y (?)
+    */
+    vertical: PropTypes.bool,
+
+    /**
      * If true the user won't be able to move the slider.
      * Default value is false.
      */
@@ -417,6 +422,10 @@ export default class Slider extends PureComponent {
   };
 
   _getValue = (gestureState: Object) => {
+    if (this.props.vertical) {
+      gestureState.dx = -gestureState.dy;
+    }
+
     const length = this.state.containerSize.width - this.state.thumbSize.width;
     const thumbLeft = this._previousLeft + gestureState.dx;
 
